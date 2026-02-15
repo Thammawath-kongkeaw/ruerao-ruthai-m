@@ -3,86 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ประวัติศาสตร์ไทย - สมัยธนบุรี</title>
+<title>Super Web Platform</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
     margin:0;
-    background:#f4f6f9;
+    font-family:Arial, sans-serif;
+    background:#eef2f7;
 }
 
 header{
-    background:#1a73e8;
+    background:#111827;
     color:white;
     padding:18px;
     text-align:center;
-    font-size:24px;
+    font-size:22px;
 }
 
-section{
-    max-width:900px;
-    margin:auto;
-    background:white;
-    padding:30px;
-    margin-top:20px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+nav{
+    display:flex;
+    justify-content:center;
+    background:#1f2937;
 }
 
-h1{
-    color:#1a73e8;
-}
-
-button{
-    background:#1a73e8;
-    color:white;
+nav button{
+    background:none;
     border:none;
-    padding:12px 20px;
-    margin-top:15px;
-    border-radius:8px;
+    color:white;
+    padding:14px 22px;
     font-size:16px;
     cursor:pointer;
 }
 
-button:hover{
-    background:#0f5cc0;
+nav button:hover{
+    background:#374151;
 }
 
-#more{
+section{
     display:none;
-    margin-top:15px;
+    max-width:900px;
+    margin:30px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 12px rgba(0,0,0,0.1);
+}
+
+.active{
+    display:block;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button.main{
+    margin-top:10px;
+    padding:10px 16px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.chatbox{
+    background:#f3f4f6;
+    padding:15px;
+    height:250px;
+    overflow:auto;
+    border-radius:8px;
 }
 </style>
 </head>
 
 <body>
 
-<header>ประวัติศาสตร์ไทย : สมัยธนบุรี 🇹🇭</header>
+<header>Super Platform : AI • Game • Community</header>
 
-<section>
-<h1>สมัยธนบุรี</h1>
+<nav>
+<button onclick="show('ai')">AI Mode</button>
+<button onclick="show('game')">Game Mode</button>
+<button onclick="show('com')">Community Mode</button>
+</nav>
 
-<p>
-สมัยธนบุรีเริ่มขึ้นหลังกรุงศรีอยุธยาเสียแก่พม่าในปี พ.ศ. 2310  
-พระเจ้าตากสินมหาราชทรงรวบรวมกำลัง กู้เอกราช และตั้งราชธานีที่กรุงธนบุรี
-</p>
+<!-- AI MODE -->
+<section id="ai" class="active">
+<h2>🤖 AI Mode</h2>
+<div class="chatbox" id="chat"></div>
+<input id="msg" placeholder="พิมพ์ข้อความ...">
+<button class="main" onclick="send()">ส่ง</button>
+</section>
 
-<button onclick="showMore()">กดเพื่อดูข้อมูลเพิ่มเติม</button>
+<!-- GAME MODE -->
+<section id="game">
+<h2>🎮 Game Creator</h2>
+<p>พิมพ์ชื่อเกมของคุณ แล้วระบบจะสร้างไอเดียเกมให้</p>
+<input id="gamename" placeholder="ชื่อเกม">
+<button class="main" onclick="createGame()">สร้างเกม</button>
+<p id="gameout"></p>
+</section>
 
-<div id="more">
-<p>
-ในสมัยธนบุรีมีการฟื้นฟูบ้านเมือง การค้ากลับมาเจริญรุ่งเรือง  
-และมีการรวบรวมแผ่นดินไทยให้เป็นหนึ่งเดียวอีกครั้ง  
-สมัยนี้สิ้นสุดลงเมื่อมีการสถาปนากรุงรัตนโกสินทร์ในปี พ.ศ. 2325
-</p>
-</div>
-
+<!-- COMMUNITY MODE -->
+<section id="com">
+<h2>🌐 Community</h2>
+<textarea id="post" placeholder="โพสต์อะไรสักอย่าง..."></textarea>
+<button class="main" onclick="addPost()">โพสต์</button>
+<div id="feed"></div>
 </section>
 
 <script>
-function showMore(){
-    document.getElementById("more").style.display="block";
+function show(id){
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+// AI CHAT (จำลอง)
+function send(){
+    let msg=document.getElementById("msg").value;
+    let chat=document.getElementById("chat");
+    chat.innerHTML+="<p><b>คุณ:</b> "+msg+"</p>";
+
+    let reply="ผมกำลังเรียนรู้จากข้อมูลจำนวนมาก และตอบว่า: "+msg;
+    chat.innerHTML+="<p><b>AI:</b> "+reply+"</p>";
+    chat.scrollTop=chat.scrollHeight;
+}
+
+// GAME CREATOR
+function createGame(){
+    let name=document.getElementById("gamename").value;
+    document.getElementById("gameout").innerHTML=
+    "ไอเดียเกม: '"+name+"' เป็นเกมผจญภัย มีด่านและบอสท้ายเกม!";
+}
+
+// COMMUNITY
+function addPost(){
+    let text=document.getElementById("post").value;
+    document.getElementById("feed").innerHTML+="<p>"+text+"</p>";
 }
 </script>
 
