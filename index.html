@@ -3,171 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เว็บรู้ไทย - ระบบอัจฉริยะ</title>
+<title>เว็บไซต์ รู้ไทย TH</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
     margin:0;
-    background:#f4f6f9;
+    font-family: "Sarabun", Arial, sans-serif;
+    background:#eef2f7;
 }
 
 header{
-    background:#1a73e8;
+    background:linear-gradient(90deg,#1a73e8,#0b4dbb);
     color:white;
-    padding:18px;
+    padding:22px;
     text-align:center;
-    font-size:24px;
+    font-size:26px;
+    font-weight:bold;
+    letter-spacing:1px;
 }
 
-nav{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    background:white;
-    padding:12px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.08);
-}
-
-button{
-    padding:10px 16px;
-    border:none;
-    background:#1a73e8;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#0f5cc0;
-}
-
-section{
+.container{
     max-width:900px;
     margin:auto;
+    padding:20px;
+}
+
+.card{
     background:white;
     padding:25px;
     margin-top:20px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    border-radius:14px;
+    box-shadow:0 5px 12px rgba(0,0,0,0.08);
+    text-align:center;
+    animation:fade 0.4s ease;
 }
 
-.hidden{
-    display:none;
+@keyframes fade{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
-textarea,input{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
+button{
+    background:#1a73e8;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    margin:8px;
     border-radius:8px;
-    border:1px solid #ccc;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+button:hover{
+    background:#0b4dbb;
+    transform:scale(1.05);
+}
+
+.page{ display:none; }
+
+.back{
+    margin-top:15px;
+    background:#888;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    margin-top:25px;
 }
 </style>
 </head>
 
 <body>
 
-<header>เว็บรู้ไทย : ระบบอัจฉริยะ</header>
+<header>เว็บไซต์ รู้ไทย TH 🇹🇭</header>
 
-<nav>
-<button onclick="show('ai')">โหมด AI</button>
-<button onclick="show('game')">โหมดเกม</button>
-<button onclick="show('community')">โหมดคอมมูนิตี้</button>
-</nav>
+<div class="container">
 
-<!-- AI MODE -->
-<section id="ai">
+<!-- เมนูหลัก -->
+<div id="menu" class="card page" style="display:block">
+<h2>เมนูหลัก</h2>
+<p>เลือกโหมดที่ต้องการใช้งาน</p>
+
+<button onclick="go('ai')">โหมด AI</button>
+<button onclick="go('game')">โหมดเกม</button>
+<button onclick="go('community')">โหมดคอมมูนิตี้</button>
+<button onclick="go('creator')">ผู้จัดทำ</button>
+</div>
+
+<!-- AI -->
+<div id="ai" class="card page">
 <h2>โหมด AI</h2>
-<p>ถามคำถามเกี่ยวกับประวัติศาสตร์ไทย</p>
+<p>
+โหมดนี้จำลองผู้ช่วยอัจฉริยะ  
+ใช้ตอบคำถาม ให้ความรู้ และอธิบายเรื่องประวัติศาสตร์ไทย  
+เหมาะสำหรับการเรียนรู้และการค้นคว้า
+</p>
+<button class="back" onclick="go('menu')">← กลับเมนู</button>
+</div>
 
-<input id="question" placeholder="พิมพ์คำถาม...">
-<button onclick="askAI()">ถาม</button>
-
-<p id="answer"></p>
-</section>
-
-<!-- GAME MODE -->
-<section id="game" class="hidden">
+<!-- เกม -->
+<div id="game" class="card page">
 <h2>โหมดเกม</h2>
-<p>เกมทายเลข 1 - 10</p>
-<input id="guess" type="number">
-<button onclick="play()">ทาย</button>
-<p id="result"></p>
-</section>
 
-<!-- COMMUNITY MODE -->
-<section id="community" class="hidden">
+<ul style="text-align:left; display:inline-block;">
+<li>เกมตอบคำถามเกี่ยวกับประวัติศาสตร์ไทย</li>
+<li>เกมทายเหตุการณ์สำคัญ</li>
+<li>เกมแข่งขันความรู้กับเพื่อน</li>
+</ul>
+
+<p>ผู้ใช้สามารถออกแบบคำถามเอง และใช้เว็บไซต์นี้ฝึกความจำได้</p>
+
+<button class="back" onclick="go('menu')">← กลับเมนู</button>
+</div>
+
+<!-- คอมมูนิตี้ -->
+<div id="community" class="card page">
 <h2>โหมดคอมมูนิตี้</h2>
 
-<textarea id="post" placeholder="เขียนข้อความ"></textarea>
-<button onclick="savePost()">โพสต์</button>
+<p>
+พื้นที่สำหรับแลกเปลี่ยนความคิดเห็น  
+พูดคุย และแบ่งปันความรู้เกี่ยวกับประวัติศาสตร์ไทย
+</p>
 
-<div id="posts"></div>
-</section>
+<p>ช่วยให้การเรียนสนุกและเข้าใจมากขึ้น</p>
+
+<button class="back" onclick="go('menu')">← กลับเมนู</button>
+</div>
+
+<!-- ผู้จัดทำ -->
+<div id="creator" class="card page">
+<h2>ผู้จัดทำ</h2>
+
+<p><b>ชื่อผู้จัดทำ:</b> ด.ช.ธรรมวัตร คงแก้ว</p>
+<p><b>รหัสนักเรียน:</b> 6320027</p>
+<p><b>ชั้น:</b> ป.6/1 เลขที่ 14</p>
+<p><b>โรงเรียน:</b> โรงเรียนสาธิตมหาวิทยาลัยเชียงใหม่ระดับอนุบาลและประถมศึกษา</p>
+
+<p><b>อาจารย์ที่ปรึกษา:</b><br>
+อาจารย์อนุรักษ์ สารขาว<br>
+อาจารย์ไกรวิชญ์ จิตต์จักร<br>
+อาจารย์ทศพล เนียมสุ่ม
+</p>
+
+<p><b>จุดประสงค์:</b> จัดทำเพื่อใช้ในการเรียนรู้และนำเสนอผลงานในชั้นเรียน</p>
+
+<button class="back" onclick="go('menu')">← กลับเมนู</button>
+</div>
+
+<footer>
+เว็บไซต์เพื่อการศึกษา | รู้ไทย TH
+</footer>
+
+</div>
 
 <script>
-
-function show(mode){
-    document.getElementById("ai").classList.add("hidden");
-    document.getElementById("game").classList.add("hidden");
-    document.getElementById("community").classList.add("hidden");
-    document.getElementById(mode).classList.remove("hidden");
+function go(id){
+    document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+    document.getElementById(id).style.display='block';
 }
-
-/* AI */
-function askAI(){
-    let q=document.getElementById("question").value;
-    let a="";
-
-    if(q.includes("ธนบุรี")){
-        a="สมัยธนบุรีเริ่มปี พ.ศ. 2310 โดยพระเจ้าตากสินมหาราช";
-    }
-    else if(q.includes("อยุธยา")){
-        a="กรุงศรีอยุธยาเป็นราชธานีไทยยาวนานกว่า 400 ปี";
-    }
-    else{
-        a="ระบบกำลังเรียนรู้คำถามนี้";
-    }
-
-    document.getElementById("answer").innerText=a;
-
-    // บันทึกข้อมูล (Big Data ขนาดเล็ก)
-    let data=JSON.parse(localStorage.getItem("questions")||"[]");
-    data.push(q);
-    localStorage.setItem("questions",JSON.stringify(data));
-}
-
-/* GAME */
-let secret=Math.floor(Math.random()*10)+1;
-
-function play(){
-    let g=document.getElementById("guess").value;
-    if(g==secret){
-        document.getElementById("result").innerText="ถูกต้อง";
-    }else{
-        document.getElementById("result").innerText="ลองใหม่";
-    }
-}
-
-/* COMMUNITY */
-function savePost(){
-    let text=document.getElementById("post").value;
-    let list=JSON.parse(localStorage.getItem("posts")||"[]");
-    list.push(text);
-    localStorage.setItem("posts",JSON.stringify(list));
-    loadPosts();
-}
-
-function loadPosts(){
-    let list=JSON.parse(localStorage.getItem("posts")||"[]");
-    let html="";
-    list.forEach(p=>html+="<p>"+p+"</p>");
-    document.getElementById("posts").innerHTML=html;
-}
-loadPosts();
-
 </script>
 
 </body>
-</html>
