@@ -1,31 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>เว็บไซต์ประวัติศาสตร์</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประวัติศาสตร์ไทย - สมัยธนบุรี</title>
+
 <style>
-body{font-family:sans-serif;text-align:center;background:#f5f5f5}
-.box{background:white;padding:20px;margin:40px auto;width:300px;border-radius:12px}
-button{padding:10px 15px;border:none;background:#007bff;color:white;border-radius:8px}
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f6f9;
+}
+
+header{
+    background:#1a73e8;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:24px;
+}
+
+section{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    margin-top:20px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+h1{
+    color:#1a73e8;
+}
+
+button{
+    background:#1a73e8;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    margin-top:15px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0f5cc0;
+}
+
+#more{
+    display:none;
+    margin-top:15px;
+}
 </style>
 </head>
+
 <body>
 
-<div class="box">
-<h2>เว็บไซต์ประวัติศาสตร์</h2>
-<p id="q">กดปุ่มเพื่อเริ่มคำถาม</p>
-<button onclick="ask()">เริ่ม</button>
+<header>ประวัติศาสตร์ไทย : สมัยธนบุรี 🇹🇭</header>
+
+<section>
+<h1>สมัยธนบุรี</h1>
+
+<p>
+สมัยธนบุรีเริ่มขึ้นหลังกรุงศรีอยุธยาเสียแก่พม่าในปี พ.ศ. 2310  
+พระเจ้าตากสินมหาราชทรงรวบรวมกำลัง กู้เอกราช และตั้งราชธานีที่กรุงธนบุรี
+</p>
+
+<button onclick="showMore()">กดเพื่อดูข้อมูลเพิ่มเติม</button>
+
+<div id="more">
+<p>
+ในสมัยธนบุรีมีการฟื้นฟูบ้านเมือง การค้ากลับมาเจริญรุ่งเรือง  
+และมีการรวบรวมแผ่นดินไทยให้เป็นหนึ่งเดียวอีกครั้ง  
+สมัยนี้สิ้นสุดลงเมื่อมีการสถาปนากรุงรัตนโกสินทร์ในปี พ.ศ. 2325
+</p>
 </div>
 
+</section>
+
 <script>
-const q=[
-"กรุงศรีอยุธยาก่อตั้งปีใด?",
-"ใครคือพ่อขุนรามคำแหง?",
-"สงครามเก้าทัพเกิดในสมัยใคร?"
-];
-function ask(){
-document.getElementById("q").innerText=
-q[Math.floor(Math.random()*q.length)];
+function showMore(){
+    document.getElementById("more").style.display="block";
 }
 </script>
 
