@@ -3,148 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Super Web Platform</title>
+<title>เว็บรู้ไทย - ระบบอัจฉริยะ</title>
 
 <style>
 body{
+    font-family: Arial, sans-serif;
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#eef2f7;
+    background:#f4f6f9;
 }
 
 header{
-    background:#111827;
+    background:#1a73e8;
     color:white;
     padding:18px;
     text-align:center;
-    font-size:22px;
+    font-size:24px;
 }
 
 nav{
     display:flex;
     justify-content:center;
-    background:#1f2937;
+    gap:10px;
+    background:white;
+    padding:12px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
-nav button{
-    background:none;
+button{
+    padding:10px 16px;
     border:none;
+    background:#1a73e8;
     color:white;
-    padding:14px 22px;
-    font-size:16px;
+    border-radius:8px;
     cursor:pointer;
 }
 
-nav button:hover{
-    background:#374151;
+button:hover{
+    background:#0f5cc0;
 }
 
 section{
-    display:none;
     max-width:900px;
-    margin:30px auto;
+    margin:auto;
     background:white;
-    padding:30px;
+    padding:25px;
+    margin-top:20px;
     border-radius:12px;
-    box-shadow:0 5px 12px rgba(0,0,0,0.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-.active{
-    display:block;
+.hidden{
+    display:none;
 }
 
-input, textarea{
+textarea,input{
     width:100%;
     padding:10px;
     margin-top:10px;
-    border-radius:6px;
-    border:1px solid #ccc;
-}
-
-button.main{
-    margin-top:10px;
-    padding:10px 16px;
-    background:#2563eb;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.chatbox{
-    background:#f3f4f6;
-    padding:15px;
-    height:250px;
-    overflow:auto;
     border-radius:8px;
+    border:1px solid #ccc;
 }
 </style>
 </head>
 
 <body>
 
-<header>Super Platform : AI • Game • Community</header>
+<header>เว็บรู้ไทย : ระบบอัจฉริยะ</header>
 
 <nav>
-<button onclick="show('ai')">AI Mode</button>
-<button onclick="show('game')">Game Mode</button>
-<button onclick="show('com')">Community Mode</button>
+<button onclick="show('ai')">โหมด AI</button>
+<button onclick="show('game')">โหมดเกม</button>
+<button onclick="show('community')">โหมดคอมมูนิตี้</button>
 </nav>
 
 <!-- AI MODE -->
-<section id="ai" class="active">
-<h2>🤖 AI Mode</h2>
-<div class="chatbox" id="chat"></div>
-<input id="msg" placeholder="พิมพ์ข้อความ...">
-<button class="main" onclick="send()">ส่ง</button>
+<section id="ai">
+<h2>โหมด AI</h2>
+<p>ถามคำถามเกี่ยวกับประวัติศาสตร์ไทย</p>
+
+<input id="question" placeholder="พิมพ์คำถาม...">
+<button onclick="askAI()">ถาม</button>
+
+<p id="answer"></p>
 </section>
 
 <!-- GAME MODE -->
-<section id="game">
-<h2>🎮 Game Creator</h2>
-<p>พิมพ์ชื่อเกมของคุณ แล้วระบบจะสร้างไอเดียเกมให้</p>
-<input id="gamename" placeholder="ชื่อเกม">
-<button class="main" onclick="createGame()">สร้างเกม</button>
-<p id="gameout"></p>
+<section id="game" class="hidden">
+<h2>โหมดเกม</h2>
+<p>เกมทายเลข 1 - 10</p>
+<input id="guess" type="number">
+<button onclick="play()">ทาย</button>
+<p id="result"></p>
 </section>
 
 <!-- COMMUNITY MODE -->
-<section id="com">
-<h2>🌐 Community</h2>
-<textarea id="post" placeholder="โพสต์อะไรสักอย่าง..."></textarea>
-<button class="main" onclick="addPost()">โพสต์</button>
-<div id="feed"></div>
+<section id="community" class="hidden">
+<h2>โหมดคอมมูนิตี้</h2>
+
+<textarea id="post" placeholder="เขียนข้อความ"></textarea>
+<button onclick="savePost()">โพสต์</button>
+
+<div id="posts"></div>
 </section>
 
 <script>
-function show(id){
-    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+
+function show(mode){
+    document.getElementById("ai").classList.add("hidden");
+    document.getElementById("game").classList.add("hidden");
+    document.getElementById("community").classList.add("hidden");
+    document.getElementById(mode).classList.remove("hidden");
 }
 
-// AI CHAT (จำลอง)
-function send(){
-    let msg=document.getElementById("msg").value;
-    let chat=document.getElementById("chat");
-    chat.innerHTML+="<p><b>คุณ:</b> "+msg+"</p>";
+/* AI */
+function askAI(){
+    let q=document.getElementById("question").value;
+    let a="";
 
-    let reply="ผมกำลังเรียนรู้จากข้อมูลจำนวนมาก และตอบว่า: "+msg;
-    chat.innerHTML+="<p><b>AI:</b> "+reply+"</p>";
-    chat.scrollTop=chat.scrollHeight;
+    if(q.includes("ธนบุรี")){
+        a="สมัยธนบุรีเริ่มปี พ.ศ. 2310 โดยพระเจ้าตากสินมหาราช";
+    }
+    else if(q.includes("อยุธยา")){
+        a="กรุงศรีอยุธยาเป็นราชธานีไทยยาวนานกว่า 400 ปี";
+    }
+    else{
+        a="ระบบกำลังเรียนรู้คำถามนี้";
+    }
+
+    document.getElementById("answer").innerText=a;
+
+    // บันทึกข้อมูล (Big Data ขนาดเล็ก)
+    let data=JSON.parse(localStorage.getItem("questions")||"[]");
+    data.push(q);
+    localStorage.setItem("questions",JSON.stringify(data));
 }
 
-// GAME CREATOR
-function createGame(){
-    let name=document.getElementById("gamename").value;
-    document.getElementById("gameout").innerHTML=
-    "ไอเดียเกม: '"+name+"' เป็นเกมผจญภัย มีด่านและบอสท้ายเกม!";
+/* GAME */
+let secret=Math.floor(Math.random()*10)+1;
+
+function play(){
+    let g=document.getElementById("guess").value;
+    if(g==secret){
+        document.getElementById("result").innerText="ถูกต้อง";
+    }else{
+        document.getElementById("result").innerText="ลองใหม่";
+    }
 }
 
-// COMMUNITY
-function addPost(){
+/* COMMUNITY */
+function savePost(){
     let text=document.getElementById("post").value;
-    document.getElementById("feed").innerHTML+="<p>"+text+"</p>";
+    let list=JSON.parse(localStorage.getItem("posts")||"[]");
+    list.push(text);
+    localStorage.setItem("posts",JSON.stringify(list));
+    loadPosts();
 }
+
+function loadPosts(){
+    let list=JSON.parse(localStorage.getItem("posts")||"[]");
+    let html="";
+    list.forEach(p=>html+="<p>"+p+"</p>");
+    document.getElementById("posts").innerHTML=html;
+}
+loadPosts();
+
 </script>
 
 </body>
